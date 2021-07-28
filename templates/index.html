@@ -1,9 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class="jumbotron text-center"> 
+<div class="jumbotron text-center">
     <h3>Welcome</h3>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, consequuntur!</p>
+</div>
+<div>
+    <ul>
+        {% for n in number %}
+        <li>{{n}}</li>
+        {% endfor %}
+
+    </ul>
 
 </div>
 
