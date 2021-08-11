@@ -11,3 +11,6 @@ def about(request):
 def detail(request,id):
      return HttpResponse('Detail:' +str(id))  
 
+def article(request):
+     return render(request, 'article.html')       
+
