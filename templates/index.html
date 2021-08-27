@@ -5,5 +5,11 @@
     <h3>Welcome</h3>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio, consequuntur!</p>
 </div>
-
+<p>
+    {% if request.user.is_authenticated %}
+        Logged in {{request.user.username}}
+    {% else %}
+        Not logged in
+    {% endif %}
+</p>
 {% endblock body %}
