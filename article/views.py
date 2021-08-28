@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from .forms import ArticleForm
 from django.contrib import messages
 from .models import Article
@@ -33,6 +33,9 @@ def addArticle(request):
           messages.success(request, "Article created successfully")
           return redirect("index")
 
+     return render(request, 'addarticle.html',{"form":form})   
 
-     return render(request, 'addarticle.html',{"form":form})        
+def detail(request,id):   
+     article = get_object_or_404(Article,id=id)
+     return render(request, 'detail.html',{"article":article})   
 
