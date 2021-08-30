@@ -8,5 +8,6 @@ class Article(models.Model):
     titel = models.CharField(max_length=50)
     content = RichTextField()
     created_date = models.DateTimeField(auto_now_add=True)
+    article_image = models.FileField(blank=True, null=True,verbose_name="Add Picture")
     def __str__(self):
         return self.titel
