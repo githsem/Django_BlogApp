@@ -6,6 +6,12 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
+def articles(request):
+     articles = Article.objects.all()
+
+     return render(request, "articles.html",{"articles":articles})
+
 def index(request):
      return render(request, 'index.html',{'number':[1,2,3,4,5]})
 
