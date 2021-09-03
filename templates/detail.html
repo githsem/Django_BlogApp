@@ -1,33 +1,76 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="row">
-                <div class="col-lg-8">
-                    <!-- Post content-->
-                    <article>
-                        <!-- Post header-->
-                        <header class="mb-4">
-                            <!-- Post title-->
-                            <h3 class="fw-bolder mb-1">{{article.titel}}</h3>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on {{article.created_date}}</div>
-                            <div class="text-muted fst-italic mb-2">by {{article.author}}</div>
-                        </header>
-                        <!-- Preview image figure-->
-                        <!-- <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure> -->
-                        <!-- Post content-->
-                        <section class="mb-5">
-                            <p>
-                                {{article.content}}
-                            </p>
-                        </section>
-                    </article>
-                    
-                </div>
-                <div class="col-lg-4">
-                    
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Post content-->
+        <article>
+            <!-- Post header-->
+            <header class="mb-4">
+                <!-- Post title-->
+                <h3 class="fw-bolder mb-1">{{article.titel}}</h3>
+                <!-- Post meta content-->
+                <div class="text-muted fst-italic mb-2">Posted on {{article.created_date}}</div>
+                <div class="text-muted fst-italic mb-2">by {{article.author}}</div>
+            </header>
+            <!-- Preview image figure-->
+            {% if article.article_image %}
+            <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="..." />
+            {% endif %}
+
+            <!-- Post content-->
+            <section class="mb-5">
+                <p>
+                    {{article.content | safe}}
+                </p>
+            </section>
+            <hr>
+            <h4>Comments</h4>
+            <hr>
+            {% if comments %}
+            {% for comment in comments %}
+            <div class="d-flex">
+                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                <div style="margin-left: 10px; margin-bottom: 20px;" class="ms-3">
+                    <div class="fw-bold">
+                       <h5 class="mt-0">{{comment.comment_author}}</h5> 
+                    </div>
+                    {{comment.comment_date}} <br>
+                    {{comment.comment_content}}
                 </div>
             </div>
-        </div>
+            {% endfor %}
+            
+            {% else %}
+                <div class="alert alert-danger">
+                    There are no comments. Add first comment...
+                </div>
+            {% endif %}
+            <div class="card my-4">
+                <h5 class="card-header">Leave a Comment:</h5>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'article:comment' article.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name</label>
+                            <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput"
+                                placeholder="Enter Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Comment</label>
+                            <textarea name="comment_content"  class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Add Comment</button>
+                    </form>
+
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+</div>
+
+
 
 {% endblock body %}
