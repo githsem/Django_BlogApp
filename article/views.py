@@ -8,8 +8,13 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def articles(request):
-     articles = Article.objects.all()
+     keyword = request.GET.get("keyword")
 
+     if keyword:
+          articles = Article.objects.filter(titel__contains = keyword)
+          return render(request, "articles.html",{"articles":articles})
+
+     articles = Article.objects.all()
      return render(request, "articles.html",{"articles":articles})
 
 def index(request):
