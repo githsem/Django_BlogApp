@@ -18,7 +18,7 @@ def register(request):
 
         newUser.save()
         login(request,newUser)
-        messages.info(request, "Login Succesfull")
+        messages.info(request, "Successfully logged in")
 
         return redirect("index")
     context = {
@@ -45,7 +45,7 @@ def loginUser(request):
             messages.info(request, "Login Error")
             return render(request, "login.html",context)
 
-        messages.success(request, "Succesful Login")
+        messages.success(request, "Successfully logged in")
         login(request, user)
         return redirect("index")
 
@@ -53,5 +53,5 @@ def loginUser(request):
 
 def logoutUser(request):
     logout(request)
-    messages.success(request, "Succesful Logout")
+    messages.success(request, "Successfully logged out")
     return redirect("index")
