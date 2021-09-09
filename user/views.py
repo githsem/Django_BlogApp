@@ -18,7 +18,7 @@ def register(request):
 
         newUser.save()
         login(request,newUser)
-        messages.info(request, "Successfully logged in")
+        messages.success(request, "Successfully logged in")
 
         return redirect("index")
     context = {
